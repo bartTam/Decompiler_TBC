@@ -4,7 +4,7 @@ import java.io.File;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import datatypes.filetypes.FileType;
+import datatypes.filetypes.FileFormat;
 
 /**
  * This will hold the options from the command line args to pass to methods.
@@ -22,8 +22,9 @@ public class Options {
 	
 	private File inputFile;
 	private File outputFile;
-	private FileType type;  
+	private BinaryFile file; 
 	private boolean append = false;
+	private boolean withGui = true;
 	
 	/**
 	 * This will create an options object, verifying all args
@@ -34,7 +35,7 @@ public class Options {
 		parseArgs(args);
 		checkForNecessaryArgs();
 		validateArgs();
-		type = FileType.scanHeader(inputFile);
+		file = new BinaryFile(inputFile);
 	}
 
 	/**
@@ -58,6 +59,9 @@ public class Options {
 				
 				// Switch on  arguments
 				switch (currentArg){
+					case "headless":
+						withGui = false;
+						break;
 					case "outfile":
 					case "o":
 						// The next arg will be the output file name
@@ -89,6 +93,14 @@ public class Options {
 				printHelp();
 			}
 		}
+	}
+	
+	public boolean withGui(){
+		return withGui;
+	}
+	
+	public BinaryFile getFile(){
+		return file;
 	}
 	
 	/**

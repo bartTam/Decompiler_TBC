@@ -2,8 +2,10 @@ package datatypes.filetypes;
 
 import datatypes.BinaryFile;
 
-class WindowsEXE implements FileType {
+abstract class WindowsEXE implements FileFormat {
 
+	static final byte[] MAGIC_NUMBER = {0x4d, 0x5a};
+	
 	private static final int PE_HEADER_POINTER = 0x3C;
 	private static final int SIZE_OF_HEADER_OFFSET = 0x14;
 
@@ -27,8 +29,8 @@ class WindowsEXE implements FileType {
 	protected final int peLocation;
 	protected final int optHeaderSize;
 
-	protected WindowsEXE(byte[] file, int peLocation){
-		this.file = new BinaryFile(file);
+	protected WindowsEXE(BinaryFile file, int peLocation){
+		this.file = file;
 		this.peLocation = peLocation;
 		optHeaderSize = (int)((0xFF & file[peLocation + SIZE_OF_HEADER_OFFSET]) | (0xFF & file[peLocation + SIZE_OF_HEADER_OFFSET + 1]) << 8);
 		System.out.println(peLocation + SIZE_OF_HEADER_OFFSET);
