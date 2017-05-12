@@ -9,7 +9,7 @@ abstract class WindowsEXE implements FileFormat {
 	private static final int PE_HEADER_POINTER = 0x3C;
 	private static final int SIZE_OF_HEADER_OFFSET = 0x14;
 
-	public static WindowsEXE getWindowsEXE(byte[] file){
+	public static WindowsEXE getWindowsEXE(BinaryFile file){
 		int peLocation = (int)((0xFF & file[PE_HEADER_POINTER]) | ((0xFF & file[PE_HEADER_POINTER + 1]) << 8) 
 				| (0xFF & (file[PE_HEADER_POINTER + 2]) << 16) | (0xFF & (file[PE_HEADER_POINTER + 3]) << 24));
 
