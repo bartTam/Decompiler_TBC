@@ -1,5 +1,6 @@
 package plugin;
 
+import java.io.File;
 import java.util.ArrayList;
 
 public class PluginManager {
@@ -16,8 +17,8 @@ public class PluginManager {
 		plugins = new ArrayList<Class<Plugin>>();
 	}
 	
-	private static String PATH_TO_PLUGINS = "";
 	public void loadPlugins(){
+		
 		
 	}
 	
