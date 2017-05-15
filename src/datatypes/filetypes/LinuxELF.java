@@ -8,7 +8,11 @@ class LinuxELF implements FileFormat {
 
 	private final BinaryFile file;
 	
-	public LinuxELF(byte[] bytes){
-		file = new BinaryFile(bytes);
+	public LinuxELF(BinaryFile file){
+		this.file = file;
+	}
+
+	public String instructionAt(long offset) {
+		return null;
 	}
 }
