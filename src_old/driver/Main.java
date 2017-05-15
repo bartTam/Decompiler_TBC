@@ -3,6 +3,7 @@ package driver;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import datatypes.BinaryFile;
 import datatypes.Options;
 import graphics.MainWindow;
 
@@ -23,6 +24,7 @@ public class Main {
 				}
 			});
 		}
+		BinaryFile file = arguments.getFile();
 	}
 
 }

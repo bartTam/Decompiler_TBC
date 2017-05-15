@@ -1,11 +1,5 @@
 package datatypes.filetypes;
 
-import java.io.BufferedInputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-
 import datatypes.BinaryFile;
 
 public interface FileFormat {
@@ -20,23 +14,22 @@ public interface FileFormat {
 	 */
 	public static FileFormat scanHeader(BinaryFile bin){			
 		FileFormat os = null;
-		try {
-			
-
-			// Read file header to find what kind of file it is
-			if(bin.checkBytesAtLocation(0, WindowsEXE.MAGIC_NUMBER)){
-				// Windows exe file
-				System.out.println("Windows exe");
-				os = WindowsEXE.getWindowsEXE(bin);
-			} else if(bin.checkBytesAtLocation(0, LinuxELF.MAGIC_NUMBER)){
-				// Linux elf file
-			}
-			
-		} catch (IOException e){
-			e.printStackTrace();
+		// Read file header to find what kind of file it is
+		if(bin.checkBytesAtLocation(0, WindowsEXE.MAGIC_NUMBER)){
+			// Windows exe file
+			System.out.println("Windows exe");
+			os = WindowsEXE.getWindowsEXE(bin);
+		} else if(bin.checkBytesAtLocation(0, LinuxELF.MAGIC_NUMBER)){
+			// Linux elf file
+			System.out.println("Linux elf");
+		} else {
+			System.out.println("Something went really wrong, " + String.format("0x%02X", bin.byteAt(0)) 
+					+ String.format("0x%02X", bin.byteAt(1)) + String.format("0x%02X", bin.byteAt(2)) 
+					+ String.format("0x%02X", bin.byteAt(3)));
 		}
 		return os;
 	}
 	
+	public String instructionAt(long offset);
 	
 }
