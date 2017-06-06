@@ -1,13 +1,13 @@
-package graphics;
+package view.gui;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
-import datatypes.Options;
+import configuration.CLArgs;
 
-public class MainWindow extends JFrame {
+class MainWindow extends JFrame {
 	
-	public MainWindow(Options options){
+	public MainWindow(CLArgs options){
 		super("Decompiler");
 		add(new JLabel("Hi"));
 		pack();

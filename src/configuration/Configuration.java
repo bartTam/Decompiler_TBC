@@ -1,11 +1,16 @@
 package configuration;
 
-import java.io.File;
+import java.util.prefs.Preferences;
 
 public class Configuration {
 
-	public Configuration(File file) {
-		
+	private static final Preferences USER_PREFS = Preferences.userNodeForPackage(Configuration.class);
+	private static final String FIRST_TIME = "First Time";
+	
+	public Configuration() {
+		if(USER_PREFS.getBoolean(FIRST_TIME, true)){
+			
+		}
 	}
 
 }

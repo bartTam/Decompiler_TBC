@@ -17,9 +17,11 @@ public class BinaryFile {
 	private Architecture arch;
 	private byte[][] binFile;
 	private long size;
+	private File file;
 	
 	public BinaryFile(File file){
 		InputStream fileHeader;
+		this.file = file;
 		size = file.length();
 		try {
 			fileHeader = new BufferedInputStream(new FileInputStream(file));
@@ -44,6 +46,10 @@ public class BinaryFile {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public File getFile(){
+		return file;
 	}
 
 	/**
