@@ -2,7 +2,9 @@ package datatypes;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 
 import configuration.CLArgs;
 import plugin.PluginManager;
@@ -45,6 +47,10 @@ public class CurrentFileManager {
 	
 	public void setCurrentFile(File file){
 		currentFile = file;
+	}
+
+	public Collection<BinaryFile> getFiles() {
+		return openFiles.values();
 	}
 	
 }

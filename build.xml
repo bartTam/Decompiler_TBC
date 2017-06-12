@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- ====================================================================== 
+     Jun 12, 2017 11:35:31 AM                                                        
+
+     DecompilerTBC    
+     A decompiler written by Bartholomew Tam
+                   
+     MrBart                                                    
+     Note: using base buildfile from 
+     https://docs.oracle.com/javase/tutorial/deployment/selfContainedApps/fileassociation.html            
+     ====================================================================== -->
+<project name="DecompilerTBC" default="default" basedir="."
+		xmlns:fx="javafx:com.sun.javafx.tools.ant">
+    <description>
+            A decompiler written by Bartholomew Tam
+    </description>
+	
+	<target name="-pre-init">
+		<!--  download and copy groovy library  -->
+		<copy toFile="lib/groovy-all-2.3.8.jar">
+			<resources>
+				<url url="http://central.maven.org/maven2/org/codehaus/groovy/groovy-all/2.3.8/groovy-all-2.3.8.jar"/>
+			</resources>
+		</copy>
+		<condition property="excludes" value="**/*Mac.java">
+			<not>
+				<os family="mac"/>
+			</not>
+		</condition>
+		<condition property="main.class" value="sample.fa.ScriptRunnerApplication" else="sample.fa.ScriptRunnerApplicationMac">
+			<not>
+				<os family="mac"/>
+			</not>
+		</condition>
+		<property name="javac.compilerargs" value="-XDignore.symbol.file=true"/>
+	</target>
+	
+
+	<target name="default">
+	        <taskdef resource="com/sun/javafx/tools/ant/antlib.xml"      
+	                uri="javafx:com.sun.javafx.tools.ant"
+	                classpath=".:path/to/sdk/lib/ant-javafx.jar"/>    
+	</target>
+	
+	<target name="-post-jar">
+		<copy todir="dist">
+			<fileset dir="src">
+				<exclude name="**/*.java"/>
+			</fileset>
+			<fileset dir="." includes="lib/*"/>
+		</copy>
+	</target>
+	
+	<target name="jar" depends="compile">
+	
+	</target>
+	
+	
+	<target xmlns:fx="javafx:com.sun.javafx.tools.ant" name="package" depends="jar">
+		<taskdef resource="com/sun/javafx/tools/ant/antlib.xml" uri="javafx:com.sun.javafx.tools.ant" classpath="${java.home}/../lib/ant-javafx.jar;src"/>
+		<fx:deploy outdir="${basedir}/build/packager" outfile="FileAssociationDemo" nativeBundles="all" verbose="false">
+		<fx:application id="fileassociationdemo" name="File Association Demo" mainClass="${main.class}" version="1.0">
+		<fx:argument>sample.js</fx:argument>
+		</fx:application>
+		<fx:resources>
+		<fx:fileset dir="dist" includes="**/*"/>
+		</fx:resources>
+		<fx:info title="File Association Demo" vendor="My Company" description="A Demo of a File Associations for JavaPackager" category="Demos" copyright="(c) 2014 My Company" license="3 Clause BSD">
+			<fx:association extension="js" mimetype="text/javascript" description="JavaScript Source"/>
+			<fx:association extension="groovy" mimetype="text/x-groovy" description="Groovy Source"/>
+		</fx:info>
+		<fx:bundleArgument arg="classpath" value="FileAssociationsDemo.jar lib/groovy-all-2.3.8.jar"/>
+		<fx:bundleArgument arg="win.exe.systemWide" value="true"/>
+		<fx:bundleArgument arg="linux.bundleName" value="file-association-demo"/>
+		<fx:bundleArgument arg="email" value="maintainer@example.com"/>
+		<fx:bundleArgument arg="mac.CFBundleName" value="File Assoc Demo"/>
+		<fx:bundleArgument arg="win.menuGroup" value="Java Demos"/>
+		</fx:deploy>
+	</target>
+
+	<target name="run">
+	
+	</target>
+	
+	<target name="compile">
+
+	</target>
+	
+    <target name="build">
+		
+    </target>
+	
+	<target name="clean">
+	
+	</target>
+
+</project>

@@ -18,6 +18,7 @@ public class BinaryFile {
 	private byte[][] binFile;
 	private long size;
 	private File file;
+	private boolean isModified = false;
 	
 	public BinaryFile(File file){
 		InputStream fileHeader;
@@ -114,5 +115,9 @@ public class BinaryFile {
 		final ByteBuffer buff = ByteBuffer.wrap(copyNumBytes(offset, bitOffset, 8));
 		buff.order(bigEndian ? ByteOrder.BIG_ENDIAN : ByteOrder.LITTLE_ENDIAN);
 		return buff.getLong();
+	}
+
+	public boolean isModified() {
+		return isModified;
 	}
 }
